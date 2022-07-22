@@ -9,7 +9,7 @@ help_dictionary = {
     "\"check_password\" or \"password_checker\"":"Checks your made up password to see it is secure enough.",
     "\"generate_password\" or \"password_generator\"":"Generates a random password.",
     }
-fuck = f'\n {str(help_dictionary)}\n\nSuggest some ideas pls'
+fuck = f'\n  After \"python main.py\" type any of this command:\n {str(help_dictionary)}\n\nSuggest some ideas pls'
 fuck = fuck.replace(",", "\n")
 fuck = fuck.replace("{", "")
 fuck = fuck.replace("}", "")
