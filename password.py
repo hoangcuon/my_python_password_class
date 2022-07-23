@@ -20,13 +20,12 @@ class Password:
     def generate(self):
         letters = number + alphabet + symbols + higher_case
         list = []
-        val = ""
 
         for i in range(self.password_length):
             random.shuffle(letters)
             list.append(random.choice(letters))
 
-        password = val.join(list)
+        password = "".join(list)
         logging.info(f'Password: {password}')
 
     def security_check(self):
