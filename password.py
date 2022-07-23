@@ -11,7 +11,7 @@ higher_case = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
 symbols = ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|',
                 '\\', ':', ';', '?', '/', "\"","'","\<","\,","\>","\."]
 
-class password:
+class Password:
 
     def __init__(self, password_length, password_to_use):
         self.password_length = password_length
