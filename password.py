@@ -13,9 +13,9 @@ symbols = ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-',
 
 class Password:
 
-    def __init__(self, password_length, password_to_use):
-        self.password_length = password_length
-        self.password_to_use = password_to_use
+    def __init__(self, **kwargs):
+        self.password_length = kwargs.get("password_length")
+        self.password_to_use = kwargs.get("password_to_use")
 
     def generate(self):
         letters = number + alphabet + symbols + higher_case
