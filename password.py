@@ -1,48 +1,47 @@
-import random
-import re
+from password import *
 import logging
+import sys
 
-logging.basicConfig(level=logging.INFO, format='[(%(asctime)s) - %(levelname)s] %(message)s')
-number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-abcs = 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '', ' '
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                 'u', 'v', 'w', 'x', 'y', 'z']
-higher_case = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-symbols = ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|',
-                '\\', ':', ';', '?', '/', "\"","'","\<","\,","\>","\."]
+logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(levelname)s: %(message)s')
 
-class Password:
+help_dictionary = {
+    "\"help\"":"Shows this list.",
+    "\"check_password\" or \"password_checker\"":"Checks your made up password to see it is secure enough.",
+    "\"generate_password\" or \"password_generator\"":"Generates a random password.",
+    }
+fuck = f'\n  After \"python main.py\" type any of this command:\n {str(help_dictionary)}\n\nSuggest some ideas pls'
+fuck = fuck.replace(",", "\n")
+fuck = fuck.replace("{", "")
+fuck = fuck.replace("}", "")
+fuck = fuck.replace("'", "")
 
-    def __init__(self, **kwargs):
-        self.password_length = kwargs.get("password_length")
-        self.password_to_use = kwargs.get("password_to_use")
+if len(sys.argv) == 2:
+    command = sys.argv[1]
 
-    def generate(self):
-        letters = number + alphabet + symbols + higher_case
-        list = []
+    if command == "password_checker" or command == "check_password":
+        password_use = input("What will your password be? (jk just make up one): ")
+        Password(password_to_use=password_use, password_length="").security_check()
+    elif command == "generate_password" or command == "password_generator":
+        password_len = input("How long will your password be?: ")
+        if password_len.isdigit():
+            password_len = int(password_len)
 
-        for i in range(self.password_length):
-            random.shuffle(letters)
-            list.append(random.choice(letters))
-
-        password = "".join(list)
-        logging.info(f'Password: {password}')
-
-    def security_check(self):
-        password = self.password_to_use
-        a = '|'.join(map(re.escape, abcs))
-        a = re.split(a, password)
-
-        check = any(item in a for item in number)
-        check_again = any(item in a for item in symbols)
-        check_again_2 = any(item in a for item in higher_case)
-        if len(password) > 7 and check and check_again and check_again_2:
-            logging.info("Pass!")
-        elif len(password) <= 7:
-            logging.error("Please enter a password to continue.")
+            if password_len <= 7:
+                logging.error("Please enter a number bigger than 7 the next time you run this command.")
+                quit()
         else:
-            logging.error("Your password must contain a number, symbol, lowercase and highercase letters.")
+            logging.error("Please enter a number the next time you run this command.")
+            quit()
+        Password(password_length=password_len, password_to_use="").generate()
+    elif command == "help":
+        logging.info(fuck)
+    else:
+        logging.error("UNKNOWN_COMMAND")
+else:
+    logging.error("BLANK_COMMAND")
 
 
-        
+
+
+
 
